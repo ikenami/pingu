@@ -19,7 +19,7 @@ export class Chitchat {
     });
 
     app.message(/^(echo) (.+)/, ({ context, say }) => {
-      const echoing = context.matches[1];
+      const echoing = context.matches[2];
 
       say(echoing);
     });
