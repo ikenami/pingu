@@ -1,8 +1,8 @@
 # Pingu
 
-Chatbot using [Slack/Bolt](https://github.com/SlackAPI/bolt).
+Slack chatbot using [Slack/Bolt](https://github.com/SlackAPI/bolt).
 
-This is a work in progress. (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+:construction: This is a work in progress. (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
 
 ## Resources
 
@@ -17,5 +17,5 @@ npm install
 > yada yada installing stuff yada yada
 
 npm start
-> ⚡️ Bolt app is running!
+> Bwahahahaha, Pingu is alive (✧ω✧)
 ```

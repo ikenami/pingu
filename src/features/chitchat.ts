@@ -7,15 +7,13 @@ export class Chitchat {
     });
 
     app.message(/^ping.*/, ({ message, say }) => {
-      say(`Tá de brimks comigo, <@${message.user}>??? (」°ロ°)」`);
-      say(`.............. pong`);
+      say(`Tá de brimks comigo, <@${message.user}>??? (」°ロ°)」\n\n\n.............. pong`);
     });
 
     app.message(/^tem hora\?.*/, ({ message, say }) => {
       const now = new Date();
 
-      say(`Tenho sim: ${now}`);
-      say(`Mas e você? (￢‿￢ )`);
+      say(`Tenho sim: ${now}\n\nMas e você? (￢‿￢ )`);
     });
 
     app.message(/^(echo) (.+)/, ({ context, say }) => {

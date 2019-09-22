@@ -1,6 +1,7 @@
 import { App, ExpressReceiver } from '@slack/bolt';
 import { ConsoleLogger, LogLevel } from '@slack/logger';
-import { Chitchat } from './features/chitchat';
+import { Chitchat } from './features/Chitchat';
+import { PinguError } from './features/PinguError';
 
 const logger = new ConsoleLogger();
 logger.setLevel(LogLevel.DEBUG);
@@ -16,6 +17,7 @@ const app = new App({
 });
 
 // import all features here
+new PinguError(app);
 new Chitchat(app);
 
 (async () => {
