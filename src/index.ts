@@ -1,6 +1,6 @@
 import { App, ExpressReceiver } from '@slack/bolt';
 import { ConsoleLogger, LogLevel } from '@slack/logger';
-import { Chitchat } from './features/Chitchat';
+import { BasicConvo } from './features/BasicConvo';
 import { PinguError } from './features/PinguError';
 
 const logger = new ConsoleLogger();
@@ -18,7 +18,7 @@ const app = new App({
 
 // import all features here
 new PinguError(app);
-new Chitchat(app);
+new BasicConvo(app);
 
 (async () => {
     await app.start(process.env.PORT || 3000);
