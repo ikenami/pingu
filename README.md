@@ -8,6 +8,7 @@ This is a work in progress. (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
 
 - NodeJs `v12.10.0`
 - Slack App
+- Heroku
 
 ## Starting the App
 
@@ -15,6 +16,6 @@ This is a work in progress. (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
 npm install
 > yada yada installing stuff yada yada
 
-node app.js
+npm start
 > ⚡️ Bolt app is running!
 ```
