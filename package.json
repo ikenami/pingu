@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ikenami/pingu/issues"
   },
-  "homepage": "https://github.com/ikenami/pingu#readme"
+  "homepage": "https://github.com/ikenami/pingu#readme",
+  "dependencies": {
+    "@slack/bolt": "^1.2.0"
+  }
 }
