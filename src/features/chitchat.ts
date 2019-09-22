@@ -11,7 +11,7 @@ export class Chitchat {
       say(`.............. pong`);
     });
 
-    app.message(/^tem hora?*/, ({ message, say }) => {
+    app.message(/^tem hora\?*/, ({ message, say }) => {
       const now = new Date().toISOString();
 
       say(`Tenho sim: ${now}`);
