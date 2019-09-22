@@ -1,5 +1,6 @@
 import { App, ExpressReceiver } from '@slack/bolt';
 import { ConsoleLogger, LogLevel } from '@slack/logger';
+import { Chitchat } from './features/chitchat';
 
 const logger = new ConsoleLogger();
 logger.setLevel(LogLevel.DEBUG);
@@ -17,6 +18,8 @@ const app = new App({
 app.message('hello', ({ message, say }) => {
     say(`Hey there <@${message.user}>\!`);
 });
+
+new Chitchat(app);
 
 (async () => {
     await app.start(process.env.PORT || 3000);
