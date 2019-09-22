@@ -18,7 +18,7 @@ export class Chitchat {
       say(`Mas e você? (￢‿￢ )`);
     });
 
-    app.message(/^echo .+/, ({ context, say }) => {
+    app.message(/^(echo) (.+)/, ({ context, say }) => {
       const echoing = context.matches[1];
 
       say(echoing);
