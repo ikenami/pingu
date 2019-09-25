@@ -20,4 +20,18 @@ export function basicConvo(app: App): void {
 
     say(echoing);
   });
+
+  app.message('te gosto', async ({ message, context }) => {
+    try {
+      const result = await app.client.reactions.add({
+        token: context.botToken,
+        name: 'heart',
+        channel: message.channel,
+        timestamp: message.ts
+      });
+    }
+    catch (error) {
+      console.error(error);
+    }
+  });
 }
