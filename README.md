@@ -9,6 +9,7 @@ Pingu is a slack chatbot in TypeScript that runs on Heroku.
 - NodeJs `v12.10.0`
 - Slack App (gotta create one if you haven't)
 - Heroku (optional, but that's what I'm using)
+- Github Actions (optional, but advisable)
 
 This app uses [:zap: Bolt](https://github.com/SlackAPI/bolt)
 
