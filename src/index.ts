@@ -1,7 +1,6 @@
 import { App, ExpressReceiver } from '@slack/bolt';
 import { ConsoleLogger, LogLevel } from '@slack/logger';
-import { BasicConvo } from './features/BasicConvo';
-import { PinguError } from './features/PinguError';
+import { FeaturesInitializer } from './features/FeaturesInitializer';
 
 const logger = new ConsoleLogger();
 logger.setLevel(LogLevel.DEBUG);
@@ -16,9 +15,8 @@ const app = new App({
     receiver: expressReceiver
 });
 
-// import all features here
-new PinguError(app);
-new BasicConvo(app);
+// load all features
+const features = new FeaturesInitializer(app).loadFeatures();
 
 (async () => {
     await app.start(process.env.PORT || 3000);
