@@ -5,7 +5,7 @@ export function basicConvo(app: App): void {
     say(`Sup <@${message.user}> ヽ(・∀・)ﾉ howdy?`);
   });
 
-  app.message(/^(P|p)ing/, ({ message, say }) => {
+  app.message('ping', ({ message, say }) => {
     say(`Tá de brimks comigo, <@${message.user}>??? (」°ロ°)」\n\n\n.............. pong`);
   });
 
