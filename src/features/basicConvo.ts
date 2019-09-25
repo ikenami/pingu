@@ -34,4 +34,14 @@ export function basicConvo(app: App): void {
       console.error(error);
     }
   });
+
+  app.message('tell fulano they are super cool', async ({message, context, say}) => {
+    await app.client.chat.postMessage({
+      token: context.botToken,
+      channel: 'UN88YAC9G',
+      text: `${ message.user } wants you to know you are super cool`,
+      unfurl_links: true,
+      unfurl_media: true
+    })
+  })
 }
