@@ -1,4 +1,4 @@
-# Pingu [![Actions Status](https://github.com/ikenami/pingu/workflows/node_ci/badge.svg)](https://github.com/ikenami/pingu/actions)
+# Pingu [![Actions Status](https://github.com/ikenami/pingu/workflows/build/badge.svg)](https://github.com/ikenami/pingu/actions)
 
 Pingu is a slack chatbot in TypeScript that runs on Heroku.
 
