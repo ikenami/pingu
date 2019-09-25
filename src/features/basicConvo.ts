@@ -5,11 +5,11 @@ export function basicConvo(app: App): void {
     say(`Sup <@${message.user}> ヽ(・∀・)ﾉ howdy?`);
   });
 
-  app.message(/^ping.*/, ({ message, say }) => {
+  app.message(/^(P|p)ing/, ({ message, say }) => {
     say(`Tá de brimks comigo, <@${message.user}>??? (」°ロ°)」\n\n\n.............. pong`);
   });
 
-  app.message(/^tem hora\?.*/, ({ message, say }) => {
+  app.message(/^(T|t)em hora\?.*/, ({ message, say }) => {
     const now: Date = new Date();
 
     say(`Tenho sim: ${now}\n\nMas e você? (￢‿￢ )`);
@@ -21,7 +21,7 @@ export function basicConvo(app: App): void {
     say(echoing);
   });
 
-  app.message('te gosto', async ({ message, context }) => {
+  app.message(/^(T|t)e gosto/, async ({ message, context }) => {
     try {
       const result = await app.client.reactions.add({
         token: context.botToken,
@@ -46,9 +46,7 @@ export function basicConvo(app: App): void {
     await app.client.chat.postMessage({
       token: context.botToken,
       channel: 'UN88YAC9G',
-      text: `<@${ message.user }> wants you to know you are super cool`,
-      unfurl_links: true,
-      unfurl_media: true
+      text: `<@${ message.user }> wants you to know you are super cool`
     })
   })
 }
