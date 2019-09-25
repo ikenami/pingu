@@ -35,11 +35,18 @@ export function basicConvo(app: App): void {
     }
   });
 
-  app.message('tell fulano they are super cool', async ({message, context, say}) => {
+  app.message('tell fulano they are super cool', async ({message, context}) => {
+    await app.client.reactions.add({
+      token: context.botToken,
+      name: 'top',
+      channel: message.channel,
+      timestamp: message.ts
+    });
+
     await app.client.chat.postMessage({
       token: context.botToken,
       channel: 'UN88YAC9G',
-      text: `${ message.user } wants you to know you are super cool`,
+      text: `<@${ message.user }> wants you to know you are super cool`,
       unfurl_links: true,
       unfurl_media: true
     })
