@@ -19,7 +19,8 @@ export class TrelloApi {
     .then((openBoards) => this.getBoardsNames(openBoards))
     .catch((error) => {
       console.log(error);
-      return `Something went wrong: ${JSON.stringify(error)}`;
+
+      return `Ih, foi mal. Não deu mt certo pq: ${JSON.stringify(error)}`;
     });
   }
 

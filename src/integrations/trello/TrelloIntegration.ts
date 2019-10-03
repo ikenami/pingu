@@ -11,7 +11,7 @@ export class TrelloIntegration {
     this.app.message('pingu lista boards', async ({ say }) => {
       let boards: string = await this.trelloApi.getBoards();
 
-      say(`Seus boards são: ${boards}`);
+      say(`Seus boards são: \n\n${boards}`);
     });
   } 
 }
