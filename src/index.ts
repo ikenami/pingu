@@ -1,7 +1,8 @@
 import { App, ExpressReceiver } from '@slack/bolt';
 import { ConsoleLogger, LogLevel } from '@slack/logger';
 import { FeaturesInitializer } from './features/FeaturesInitializer';
-import { TrelloIntegration } from './integrations/TrelloIntegration';
+import { TrelloIntegration } from './integrations/trello/TrelloIntegration';
+import { TrelloApi } from './integrations/trello/TrelloApi';
 
 const logger = new ConsoleLogger();
 logger.setLevel(LogLevel.DEBUG);
@@ -18,7 +19,13 @@ const app = new App({
 
 // load all features
 const features = new FeaturesInitializer(app).loadFeatures();
-const trello = new TrelloIntegration(app).loadFeatures();
+
+// load trello integration
+const trelloApi = new TrelloApi({
+    key: process.env.TRELLO_KEY!,
+    token: process.env.TRELLO_TOKEN!,
+  });
+const trello = new TrelloIntegration(app, trelloApi).loadFeatures();
 
 (async () => {
     await app.start(process.env.PORT || 3000);
