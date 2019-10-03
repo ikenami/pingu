@@ -15,7 +15,7 @@ export class TrelloApi {
         token: this.config.token,
       }
     })
-    .then((response) => response.toString())
+    .then((response) => JSON.stringify(response))
     // .then((response) => this.filterOpenBoards(response as unknown as any[]))
     // .then((openBoards) => this.getBoardsNames(openBoards))
     .catch((error) => {
