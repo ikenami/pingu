@@ -15,9 +15,8 @@ export class TrelloApi {
         token: this.config.token,
       }
     })
-    .then((response) => JSON.stringify(response))
-    // .then((response) => this.filterOpenBoards(response as unknown as any[]))
-    // .then((openBoards) => this.getBoardsNames(openBoards))
+    .then((response) => this.filterOpenBoards(response.data))
+    .then((openBoards) => this.getBoardsNames(openBoards))
     .catch((error) => {
       console.log(error);
       return `Something went wrong: ${JSON.stringify(error)}`;
@@ -29,6 +28,6 @@ export class TrelloApi {
   }
 
   private getBoardsNames(boards: any[]): string {
-    return boards.map(board => board.name).join(', ');
+    return boards.map(board => `- ${board.name}`).join('\n\n');
   }
 }
