@@ -6,11 +6,7 @@ interface TrelloConfig {
 }
 
 export class TrelloApi {
-  private config: TrelloConfig;
-
-  constructor(config: TrelloConfig) {
-    this.config = config;
-  }
+  constructor(private readonly config: TrelloConfig) {}
 
   public async getBoards(): Promise<string>{
     return Axios.get('https://api.trello.com/1/members/me/boards', {
