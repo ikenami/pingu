@@ -41,6 +41,7 @@ export function basicConvo(app: App): void {
         token: context.botToken,
         name: 'fire',
         channel: message.channel,
+        timestamp: message.ts
       });
     }
     catch (error) {
