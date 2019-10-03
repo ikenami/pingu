@@ -30,11 +30,21 @@ export class TrelloIntegration {
       }
     })
     .then((response) => {
-      return JSON.stringify(response);
+      const openBoards = this.filterOpenBoards(response);
+      
+      return this.getBoardsName(openBoards);
     })
     .catch((error) => {
       console.log(error);
       return '';
     });
+  }
+
+  private filterOpenBoards(boards: object[]): object[] {
+    return boards.filter((board) => !board.closed);
+  }
+
+  private getBoardsName(boards: object[]): string {
+    return boards.map(board => board.name).join(', ');
   }
 }
