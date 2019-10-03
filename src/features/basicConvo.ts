@@ -35,6 +35,19 @@ export function basicConvo(app: App): void {
     }
   });
 
+  app.message(/^(T|t)(a|á)+ cal(o|ô)+r*/, async ({ message, context }) => {
+    try {
+      const result = await app.client.reactions.add({
+        token: context.botToken,
+        name: 'fire',
+        channel: message.channel,
+      });
+    }
+    catch (error) {
+      console.error(error);
+    }
+  });
+
   app.message('tell fulano they are super cool', async ({message, context}) => {
     await app.client.reactions.add({
       token: context.botToken,
