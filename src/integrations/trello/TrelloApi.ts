@@ -13,20 +13,17 @@ export class TrelloApi {
   }
 
   public async getBoards(): Promise<string>{
-    return await Axios.get('https://api.trello.com/1/members/me/boards', {
+    return Axios.get('https://api.trello.com/1/members/me/boards', {
       params: {
         key: this.config.key,
         token: this.config.token,
       }
     })
-    .then((response) => {
-      const openBoards = this.filterOpenBoards(response as unknown as any[]);
-
-      return this.getBoardsName(openBoards);
-    })
+    .then((response) => this.filterOpenBoards(response as unknown as any[]))
+    .then((openBoards) => this.getBoardsNames(openBoards))
     .catch((error) => {
       console.log(error);
-      return '';
+      return `Something went wrong: ${JSON.stringify(error)}`;
     });
   }
 
@@ -34,7 +31,7 @@ export class TrelloApi {
     return boards.filter((board) => !board.closed);
   }
 
-  private getBoardsName(boards: any[]): string {
+  private getBoardsNames(boards: any[]): string {
     return boards.map(board => board.name).join(', ');
   }
 }
