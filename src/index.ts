@@ -1,7 +1,7 @@
 import { App, ExpressReceiver } from '@slack/bolt';
 import { ConsoleLogger, LogLevel } from '@slack/logger';
 import { FeaturesInitializer } from './features/FeaturesInitializer';
-import { TrelloIntegration } from './integrations/trelloIntegration';
+import { TrelloIntegration } from './integrations/TrelloIntegration';
 
 const logger = new ConsoleLogger();
 logger.setLevel(LogLevel.DEBUG);
