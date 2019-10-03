@@ -1,8 +1,8 @@
 import Axios from "axios";
 
 interface TrelloConfig {
-  key: string | null;
-  token: string | null;
+  key: string;
+  token: string;
 }
 
 export class TrelloApi {
@@ -15,8 +15,9 @@ export class TrelloApi {
         token: this.config.token,
       }
     })
-    .then((response) => this.filterOpenBoards(response as unknown as any[]))
-    .then((openBoards) => this.getBoardsNames(openBoards))
+    .then((response) => response.toString())
+    // .then((response) => this.filterOpenBoards(response as unknown as any[]))
+    // .then((openBoards) => this.getBoardsNames(openBoards))
     .catch((error) => {
       console.log(error);
       return `Something went wrong: ${JSON.stringify(error)}`;
