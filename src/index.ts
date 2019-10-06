@@ -18,14 +18,14 @@ const app = new App({
 });
 
 // load all features
-const features = new FeaturesInitializer(app).loadFeatures();
+new FeaturesInitializer(app).loadFeatures();
 
 // load trello integration
 const trelloApi = new TrelloApi({
   key: process.env.TRELLO_KEY!,
   token: process.env.TRELLO_TOKEN!,
 });
-const trello = new TrelloIntegration(app, trelloApi).loadFeatures();
+new TrelloIntegration(app, trelloApi).loadFeatures();
 
 (async () => {
   await app.start(process.env.PORT || 3000);

@@ -9,7 +9,7 @@ export default function basicConvo(app: App): void {
     say(`Tá de brimks comigo, <@${message.user}>??? (」°ロ°)」\n\n\n.............. pong`);
   });
 
-  app.message(/^(T|t)em hora\?.*/, ({ message, say }) => {
+  app.message(/^(T|t)em hora\?.*/, ({ say }) => {
     const now: Date = new Date();
 
     say(`Tenho sim: ${now}\n\nMas e você? (￢‿￢ )`);
@@ -29,6 +29,8 @@ export default function basicConvo(app: App): void {
         channel: message.channel,
         timestamp: message.ts,
       });
+
+      console.log(result);
     } catch (error) {
       console.error(error);
     }
@@ -42,6 +44,8 @@ export default function basicConvo(app: App): void {
         channel: message.channel,
         timestamp: message.ts,
       });
+
+      console.log(result);
     } catch (error) {
       console.error(error);
     }
