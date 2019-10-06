@@ -1,7 +1,7 @@
 import { App } from '@slack/bolt';
-import { TrelloApi } from './TrelloApi';
+import TrelloApi from './TrelloApi';
 
-export class TrelloIntegration {
+export default class TrelloIntegration {
   constructor(
     private readonly app: App,
     private readonly trelloApi: TrelloApi,

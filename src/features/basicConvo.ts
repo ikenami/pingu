@@ -1,6 +1,6 @@
 import { App } from '@slack/bolt';
 
-export function basicConvo(app: App): void {
+export default function basicConvo(app: App): void {
   app.message(/^(hi+|he+llo+|he+y+|o+i+|e a(í|i)+).*/, ({ message, say }) => {
     say(`Sup <@${message.user}> ヽ(・∀・)ﾉ howdy?`);
   });

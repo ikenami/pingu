@@ -5,7 +5,7 @@ interface TrelloConfig {
   token: string;
 }
 
-export class TrelloApi {
+export default class TrelloApi {
   constructor(private readonly config: TrelloConfig) {}
 
   public async getBoards(): Promise<string> {
