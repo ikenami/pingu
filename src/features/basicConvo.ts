@@ -1,4 +1,4 @@
-import { App } from "@slack/bolt";
+import { App } from '@slack/bolt';
 
 export function basicConvo(app: App): void {
   app.message(/^(hi+|he+llo+|he+y+|o+i+|e a(í|i)+).*/, ({ message, say }) => {
@@ -27,40 +27,38 @@ export function basicConvo(app: App): void {
         token: context.botToken,
         name: 'heart',
         channel: message.channel,
-        timestamp: message.ts
+        timestamp: message.ts,
       });
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
     }
   });
 
-  app.message(/^(T|t)(a|á)+ cal(o|ô)+r*/, async ({ message, context }) => {
+  app.message(/^(T|t)(a|á)+ cal(o|ô)+r?/, async ({ message, context }) => {
     try {
       const result = await app.client.reactions.add({
         token: context.botToken,
         name: 'fire',
         channel: message.channel,
-        timestamp: message.ts
+        timestamp: message.ts,
       });
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
     }
   });
 
-  app.message('tell fulano they are super cool', async ({message, context}) => {
+  app.message('tell fulano they are super cool', async ({ message, context }) => {
     await app.client.reactions.add({
       token: context.botToken,
       name: 'top',
       channel: message.channel,
-      timestamp: message.ts
+      timestamp: message.ts,
     });
 
     await app.client.chat.postMessage({
       token: context.botToken,
       channel: 'UN88YAC9G',
-      text: `<@${ message.user }> wants you to know you are super cool`
-    })
-  })
+      text: `<@${message.user}> wants you to know you are super cool`,
+    });
+  });
 }
