@@ -1,7 +1,7 @@
-import { App } from "@slack/bolt";
-import { TrelloApi } from "./TrelloApi";
+import { App } from '@slack/bolt';
+import TrelloApi from './TrelloApi';
 
-export class TrelloIntegration {
+export default class TrelloIntegration {
   constructor(
     private readonly app: App,
     private readonly trelloApi: TrelloApi,
@@ -9,9 +9,9 @@ export class TrelloIntegration {
 
   public async loadFeatures() {
     this.app.message('pingu lista boards', async ({ say }) => {
-      let boards: string = await this.trelloApi.getBoards();
+      const boards: string = await this.trelloApi.getBoards();
 
       say(`Seus boards são: \n\n${boards}`);
     });
-  } 
+  }
 }
