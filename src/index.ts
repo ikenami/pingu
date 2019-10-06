@@ -8,8 +8,8 @@ const logger = new ConsoleLogger();
 logger.setLevel(LogLevel.DEBUG);
 
 const expressReceiver = new ExpressReceiver({
-  signingSecret: process.env.SLACK_SIGNING_SECRET!,
   logger,
+  signingSecret: process.env.SLACK_SIGNING_SECRET!,
 });
 
 const app = new App({
@@ -25,6 +25,7 @@ const trelloApi = new TrelloApi({
   key: process.env.TRELLO_KEY!,
   token: process.env.TRELLO_TOKEN!,
 });
+
 new TrelloIntegration(app, trelloApi).loadFeatures();
 
 (async () => {
