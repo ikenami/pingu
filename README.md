@@ -2,7 +2,7 @@
 
 Pingu is a slack chatbot in TypeScript that runs on Heroku.
 
-:construction: This is a work in progress. (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+:construction: This is a work in progress. (ﾉ◕ヮ◕)ﾉ\*:･ﾟ✧
 
 ## Groceries
 
@@ -16,12 +16,19 @@ This app uses [:zap: Bolt](https://github.com/SlackAPI/bolt)
 ## Integrations
 
 - [x] Trello (`in progress`)
-- [ ] Github
+- [x] Github (`in progress`)
 - [ ] Bitbucket
 
 ## Starting the App
 
 Before running the app, you gotta set the environment variables with your Slack App credentials stuff (you can check `.env.example`).
+
+## Github App
+
+create a [github token](https://github.com/settings/tokens)
+give note a descriptive name (e.g. `Pingu`)
+and the `repo` scope
+copy the token to the local `.env` file
 
 #### Run local
 
