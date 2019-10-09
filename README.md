@@ -2,7 +2,7 @@
 
 Pingu is a slack chatbot in TypeScript that runs on Heroku.
 
-:construction: This is a work in progress. (ﾉ◕ヮ◕)ﾉ\*:･ﾟ✧
+:construction: This is a work in progress. (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
 
 ## Groceries
 
