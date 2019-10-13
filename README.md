@@ -11,7 +11,9 @@ Pingu is a slack chatbot in TypeScript that runs on Heroku.
 - Heroku (optional, but that's what I'm using)
 - Github Actions (optional, but advisable)
 
-This app uses [:zap: Bolt](https://github.com/SlackAPI/bolt)
+This app uses:
+- [:zap: Bolt](https://github.com/SlackAPI/bolt)
+- GraphQL (for **Github API** request queries)
 
 ## Integrations
 
@@ -21,14 +23,24 @@ This app uses [:zap: Bolt](https://github.com/SlackAPI/bolt)
 
 ## Starting the App
 
-Before running the app, you gotta set the environment variables with your Slack App credentials stuff (you can check `.env.example`).
+Before running the app, you gotta set the environment variables (you can check `.env.example`).
 
-## Github App
+#### Slack App Setup
 
-create a [github token](https://github.com/settings/tokens)
-give note a descriptive name (e.g. `Pingu`)
-and the `repo` scope
-copy the token to the local `.env` file
+* Follow the first two steps to [create a Slack App](https://slack.dev/bolt/tutorial/getting-started)
+* Add both the `SLACK_SIGNING_SECRET` and `SLACK_BOT_TOKEN` to the local `.env` file
+
+#### Trello Integration Setup
+
+* Follow [these steps](https://developers.trello.com/docs/api-introduction) to get a Trello `app key`
+* Add the key to the local `.env` file
+
+#### Github Integration Setup
+
+* Create a [github token](https://github.com/settings/tokens) 
+  * Give the token a descriptive name (e.g. `pingu`)
+  * Add the `repo` scope
+* Add the token to the local `.env` file
 
 #### Run local
 
@@ -38,6 +50,12 @@ npm install
 
 npm start
 > Bwahahahaha, Pingu is alive (✧ω✧)
+```
+
+#### Other commands
+
+```bash
+npm run lint-fix  # fixes lint (orly, sherlock?)
 ```
 
 #### Run on server
