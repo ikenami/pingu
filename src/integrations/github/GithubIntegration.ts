@@ -77,7 +77,7 @@ export default class GithubIntegration {
                   title
                   url
                   createdAt
-                  reviews {
+                  reviews(last: 10) {
                     edges {
                       node {
                         author {
