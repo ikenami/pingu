@@ -11,6 +11,8 @@ export default class GithubIntegration {
     this.app.message(/^(G|g)et user issues (.+)/, async ({ say, context }) => {
       const username = context.matches[2]
 
+      say(`Okay, I'm getting ${username} issues, hold on`)
+
       const userIssuesQuery: string = `{
         user(login: ${username}) {
           issues(last: 10,
@@ -26,7 +28,6 @@ export default class GithubIntegration {
                 }
                 title
                 url
-                createdAt
               }
             }
           }
@@ -46,9 +47,8 @@ export default class GithubIntegration {
             author: { login },
             title,
             url,
-            createdAt,
           },
-        }: any) => `:diamonds: @${login} [${title} - ${url}] \t\t${new Date(createdAt)}`,
+        }: any) => `@${login} [${title} - ${url}]`,
       )
 
       say(issues.join('\n'))
@@ -58,6 +58,8 @@ export default class GithubIntegration {
 
       try {
         const username = context.matches[2]
+
+        say(`Okidoki, I'm getting ${username} prs, one sec`)
 
         const userPrsQuery: string = `{
           user(login: ${username}) {
@@ -74,7 +76,6 @@ export default class GithubIntegration {
                   }
                   title
                   url
-                  createdAt
                   reviews(last: 10, states:[APPROVED, CHANGES_REQUESTED, DISMISSED, PENDING]) {
                     edges {
                       node {
@@ -99,7 +100,7 @@ export default class GithubIntegration {
         } = await this.githubApi.get(userPrsQuery)
 
         const pullrequests = edges.map((edge: any) => {
-          let reviewers = '\nunassigned';
+          let reviewers = '\t\tunassigned';
 
           if(edge.node.reviews && edge.node.reviews.edges.length > 0) {
             reviewers = edge.node.reviews.edges.map((reviewEdge: any) => {
@@ -113,7 +114,7 @@ export default class GithubIntegration {
             }).join('\n')
           }
 
-          return `:spades: @${edge.node.author.login} [${edge.node.title} - ${edge.node.url}]\n${reviewers}`
+          return `@${edge.node.author.login} [${edge.node.title} - ${edge.node.url}]\n${reviewers}`
         })
 
         say(pullrequests.join('\n'))
