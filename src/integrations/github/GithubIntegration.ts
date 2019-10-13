@@ -99,12 +99,14 @@ export default class GithubIntegration {
             },
           },
         } = await this.githubApi.get(userPrsQuery)
+
         const pullrequests = edges.map((edge: any) => {
           const createdAt = new Date(edge.node.createdAt)
           let reviewers = 'unassigned';
           console.log('vars are okay')
+          console.log(edge.node.reviews)
 
-          if(edge.node.reviews && edge.node.reviews.edges.length > 0) {
+          if(edge.node.reviews) {
             console.log('has reviewers')
             reviewers = edge.node.reviews.edges.map((reviewEdge: any) => {
               console.log(reviewEdge)
@@ -125,7 +127,6 @@ export default class GithubIntegration {
         })
       } catch (err) {
         console.log(err)
-        say(err)
       }
     })
   }
