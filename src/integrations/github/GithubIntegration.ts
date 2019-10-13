@@ -103,23 +103,19 @@ export default class GithubIntegration {
         const pullrequests = edges.map((edge: any) => {
           const createdAt = new Date(edge.node.createdAt)
           let reviewers = 'unassigned';
-          console.log('vars are okay')
-          console.log(edge.node.reviews)
 
-          if(edge.node.reviews) {
-            console.log('has reviewers')
+          if(edge.node.reviews && edge.node.reviews.edges.length > 0) {
             reviewers = edge.node.reviews.edges.map((reviewEdge: any) => {
-              console.log(reviewEdge)
-              return `${reviewEdge.node.author.login} - ${reviewEdge.node.author.state}`
-            }).join(', ')
+              const status = reviewEdge.node.state === 'APPROVED'? ':heavy_check_mark:' : '...'
+              return `@${reviewEdge.node.author.login} - ${status}`
+            }).join('\n')
           }
-          console.log(`reviewers: ${reviewers}`)
 
-          return `user: ${edge.node.author.login}\n
-                  title: ${edge.node.title}\n
-                  createdAt: ${createdAt}\n
-                  url: ${edge.node.url}\n
-                  reviews: ${reviewers}`
+          return [`@${edge.node.author.login}`,
+                  `${edge.node.title}`,
+                  `created at: ${createdAt}`,
+                  `${edge.node.url}`,
+                  `reviews:\n${reviewers}`].join('\n')
         })
 
         pullrequests.forEach((message: any) => {
