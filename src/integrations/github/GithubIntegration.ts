@@ -48,12 +48,10 @@ export default class GithubIntegration {
             url,
             createdAt,
           },
-        }: any) => `user: ${login}\ntitle: ${title}\nurl: ${url}\ncreatedAt: ${createdAt}`,
+        }: any) => `:diamonds: ${login} [${title} - ${url}] ${new Date(createdAt)}`,
       )
 
-      issues.forEach((message: any) => {
-        say(message)
-      })
+      say(issues.join('\n'))
     })
 
     this.app.message(/^(G|g)et user prs (.+)/, async ({ say, context }) => {
@@ -77,7 +75,7 @@ export default class GithubIntegration {
                   title
                   url
                   createdAt
-                  reviews(last: 10) {
+                  reviews(last: 10, states:[APPROVED, CHANGES_REQUESTED, DISMISSED, PENDING]) {
                     edges {
                       node {
                         author {
@@ -111,11 +109,11 @@ export default class GithubIntegration {
                 status = ':heavy_check_mark:'
               }
 
-              return `@${reviewEdge.node.author.login} - ${status}`
+              return `\t\t@${reviewEdge.node.author.login} - ${status}`
             }).join('\n')
           }
 
-          return `${edge.node.author.login} [${edge.node.title} - ${edge.node.url}]\n\t${reviewers}`
+          return `:spades: ${edge.node.author.login} [${edge.node.title} - ${edge.node.url}]\n${reviewers}`
         })
 
         say(pullrequests.join('\n'))
