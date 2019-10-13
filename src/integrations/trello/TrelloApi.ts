@@ -1,12 +1,20 @@
 import Axios from 'axios';
 
 interface TrelloConfig {
-  key: string;
-  token: string;
+  key: string | undefined;
+  token: string | undefined;
 }
 
 export default class TrelloApi {
   constructor(private readonly config: TrelloConfig) {}
+
+  public static getInstance(config: TrelloConfig): TrelloApi | null {
+    if(config.key && config.token) {
+      return new TrelloApi(config);
+    }
+
+    return null;
+  }
 
   public async getBoards(): Promise<string> {
     return Axios.get('https://api.trello.com/1/members/me/boards', {
