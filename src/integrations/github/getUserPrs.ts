@@ -47,7 +47,7 @@ export default function getUserPrs(app: App, githubApi: GithubApi) {
       } = await githubApi.get(userPrsQuery)
 
       const pullrequests = edges.map((edge: any) => {
-        let reviewers = '\t\tunassigned'
+        let reviewers = '\t\tno revieweres'
 
         if (edge.node.reviews && edge.node.reviews.edges.length > 0) {
           reviewers = edge.node.reviews.edges.map((reviewEdge: any) => {
