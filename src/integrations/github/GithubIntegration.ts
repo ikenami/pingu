@@ -99,17 +99,17 @@ export default class GithubIntegration {
         },
       } = await this.githubApi.get(userPrsQuery)
 
-      const pullrequests = edges.map(
-        ({
-          node: {
-            author: { login },
-            title,
-            url,
-            createdAt,
-            reviewRequests,
-          },
-        }: any) => `user: ${login}\ntitle: ${title}\ncreatedAt: ${createdAt}\nurl: ${url}\nreviewRequests: ${reviewRequests}`,
-      )
+      const pullrequests = edges.map((edge: any) => {
+        const reviewers = edge.node.reviewRequests.edges.map((reviewEdge: any) => {
+          return reviewEdge.node.requestedReviewer.user.login;
+        }).join(', ');
+
+        return `user: ${edge.node.user.login}\n
+                title: ${edge.node.title}\n
+                createdAt: ${edge.node.createdAt}\n
+                url: ${edge.node.url}\n
+                reviewRequests: ${reviewers}`
+      })
 
       pullrequests.forEach((message: any) => {
         say(message)
