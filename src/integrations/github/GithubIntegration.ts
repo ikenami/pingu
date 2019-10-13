@@ -13,14 +13,19 @@ export default class GithubIntegration {
 
       const userIssuesQuery: string = `{
         user(login: ${username}) {
-          issues(first: 10) {
+          issues(last: 10,
+            states:OPEN,
+            orderBy:{
+              field:CREATED_AT,
+              direction:ASC
+            }) {
             edges {
               node {
-                id
+                title
                 author {
                   login
                 }
-                body
+                url
               }
             }
           }
@@ -37,14 +42,60 @@ export default class GithubIntegration {
       const issues = edges.map(
         ({
           node: {
-            id,
+            title,
+            url,
             author: { login },
-            body,
           },
-        }: any) => `id: ${id}\nuser: ${login}\nbody: ${body}`,
+        }: any) => `user: ${login}\ntitle: ${title}\nurl: ${url}`,
       )
 
       issues.forEach((message: any) => {
+        say(message)
+      })
+    })
+
+    this.app.message(/^(G|g)et user prs (.+)/, async ({ say, context }) => {
+      const username = context.matches[2]
+
+      const userPrsQuery: string = `{
+        user(login: ${username}) {
+          pullRequests(last: 10,
+                       states:OPEN,
+                       orderBy:{
+                         field:CREATED_AT,
+                         direction:ASC
+                       }) {
+            edges {
+              node {
+                title
+                url
+                author {
+                  login
+                }
+              }
+            }
+          }
+        }}`
+
+      const {
+        data: {
+          user: {
+            pullRequests: { edges },
+          },
+        },
+      } = await this.githubApi.get(userPrsQuery)
+
+      const pullrequests = edges.map(
+        ({
+          node: {
+            title,
+            url,
+            author: { login },
+          },
+        }: any) => `user: ${login}\ntitle: ${title}\nurl: ${url}`,
+      )
+
+      pullrequests.forEach((message: any) => {
         say(message)
       })
     })
