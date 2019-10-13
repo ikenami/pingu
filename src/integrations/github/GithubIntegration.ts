@@ -101,26 +101,24 @@ export default class GithubIntegration {
         } = await this.githubApi.get(userPrsQuery)
 
         const pullrequests = edges.map((edge: any) => {
-          const createdAt = new Date(edge.node.createdAt)
           let reviewers = 'unassigned';
 
           if(edge.node.reviews && edge.node.reviews.edges.length > 0) {
             reviewers = edge.node.reviews.edges.map((reviewEdge: any) => {
-              const status = reviewEdge.node.state === 'APPROVED'? ':heavy_check_mark:' : '...'
+              let status = reviewEdge.node.state
+              
+              if(status === 'APPROVED') {
+                status = ':heavy_check_mark:'
+              }
+
               return `@${reviewEdge.node.author.login} - ${status}`
             }).join('\n')
           }
 
-          return [`@${edge.node.author.login}`,
-                  `${edge.node.title}`,
-                  `created at: ${createdAt}`,
-                  `${edge.node.url}`,
-                  `reviews:\n${reviewers}`].join('\n')
+          return `${edge.node.author.login} [${edge.node.title} - ${edge.node.url}]\n\t${reviewers}`
         })
 
-        pullrequests.forEach((message: any) => {
-          say(message)
-        })
+        say(pullrequests.join('\n'))
       } catch (err) {
         console.log(err)
       }
