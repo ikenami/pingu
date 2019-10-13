@@ -9,7 +9,7 @@ export default class TrelloApi {
   constructor(private readonly config: TrelloConfig) {}
 
   public static getInstance(config: TrelloConfig): TrelloApi | null {
-    if(config.key && config.token) {
+    if (config.key && config.token) {
       return new TrelloApi(config);
     }
 

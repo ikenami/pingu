@@ -1,5 +1,5 @@
-import { App } from "@slack/bolt";
-import GithubApi from "./GithubApi";
+import { App } from '@slack/bolt';
+import GithubApi from './GithubApi';
 
 export default class GithubIntegration {
   constructor(
@@ -25,24 +25,25 @@ export default class GithubIntegration {
             }
           }
         }}`;
-  
+
       const {
         data: {
           user: {
-            issues: { edges }
-          }
-        }
+            issues: { edges },
+          },
+        },
       } = await this.githubApi.get(userIssuesQuery);
-  
+
       const issues = edges.map(
         ({
           node: {
             id,
             author: { login },
-            body
-          }
-        }: any) => `id: ${id}\nuser: ${login}\nbody: ${body}`);
-      
+            body,
+          },
+        }: any) => `id: ${id}\nuser: ${login}\nbody: ${body}`,
+      );
+
       issues.forEach((message: any) => {
         say(message);
       });

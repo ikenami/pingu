@@ -26,8 +26,8 @@ const integrationsApi: IntegrationsApi = {
   }),
   githubApi: GithubApi.getInstance({
     accessToken: process.env.GITHUB_ACCESS_TOKEN,
-  })
-}
+  }),
+};
 
 // load all features
 new FeaturesInitializer(
