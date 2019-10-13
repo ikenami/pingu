@@ -99,9 +99,9 @@ export default class GithubIntegration {
         const createdAt = new Date(edge.node.createdAt)
         let reviewers = 'unassigned';
 
-        if(edge.node.reviewRequests) {
+        if(edge.node.reviewRequests && edge.node.reviewRequests.edges.length > 0) {
           reviewers = edge.node.reviewRequests.edges.map((reviewEdge: any) => {
-            return reviewEdge.node.requestedReviewer.login
+            return reviewEdge.node.requestedReviewer
           }).join(', ')
         }
 
