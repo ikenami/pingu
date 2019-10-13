@@ -97,9 +97,13 @@ export default class GithubIntegration {
 
       const pullrequests = edges.map((edge: any) => {
         const createdAt = new Date(edge.node.createdAt)
-        const reviewers = edge.node.reviewRequests.edges.map((reviewEdge: any) => {
-          return reviewEdge.node.requestedReviewer
-        }).join(', ')
+        let reviewers = 'unassigned';
+
+        if(edge.node.reviewRequests) {
+          reviewers = edge.node.reviewRequests.edges.map((reviewEdge: any) => {
+            return reviewEdge.node.requestedReviewer.login
+          }).join(', ')
+        }
 
         return `user: ${edge.node.user.login}\n
                 title: ${edge.node.title}\n
