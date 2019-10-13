@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import Axios from 'axios'
 
 interface GithubConfig {
   accessToken: string | undefined;
@@ -9,10 +9,10 @@ export default class GithubApi {
 
   public static getInstance(config: GithubConfig): GithubApi | null {
     if (config.accessToken) {
-      return new GithubApi(config);
+      return new GithubApi(config)
     }
 
-    return null;
+    return null
   }
 
   public async get(query: string, variables?: any): Promise<any> {
@@ -27,8 +27,8 @@ export default class GithubApi {
         'Content-Type': 'application/json',
         Authorization: `bearer ${this.config.accessToken}`,
       },
-    });
+    })
 
-    return response.data;
+    return response.data
   }
 }

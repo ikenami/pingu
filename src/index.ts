@@ -1,22 +1,22 @@
-import { App, ExpressReceiver } from '@slack/bolt';
-import { ConsoleLogger, LogLevel } from '@slack/logger';
-import FeaturesInitializer from './features/FeaturesInitializer';
-import TrelloApi from './integrations/trello/TrelloApi';
-import GithubApi from './integrations/github/GithubApi';
-import IntegrationsApi from './integrations/IntegrationsApi';
+import { App, ExpressReceiver } from '@slack/bolt'
+import { ConsoleLogger, LogLevel } from '@slack/logger'
+import FeaturesInitializer from './features/FeaturesInitializer'
+import TrelloApi from './integrations/trello/TrelloApi'
+import GithubApi from './integrations/github/GithubApi'
+import IntegrationsApi from './integrations/IntegrationsApi'
 
-const logger = new ConsoleLogger();
-logger.setLevel(LogLevel.DEBUG);
+const logger = new ConsoleLogger()
+logger.setLevel(LogLevel.DEBUG)
 
 const expressReceiver = new ExpressReceiver({
   logger,
   signingSecret: process.env.SLACK_SIGNING_SECRET!,
-});
+})
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
   receiver: expressReceiver,
-});
+})
 
 // load integrations
 const integrationsApi: IntegrationsApi = {
@@ -27,7 +27,7 @@ const integrationsApi: IntegrationsApi = {
   githubApi: GithubApi.getInstance({
     accessToken: process.env.GITHUB_ACCESS_TOKEN,
   }),
-};
+}
 
 // load all features
 new FeaturesInitializer(
@@ -36,7 +36,7 @@ new FeaturesInitializer(
 ).loadFeatures();
 
 (async () => {
-  await app.start(process.env.PORT || 3000);
+  await app.start(process.env.PORT || 3000)
 
-  console.log('Bwahahahaha, Pingu is alive (✧ω✧)');
-})();
+  console.log('Bwahahahaha, Pingu is alive (✧ω✧)')
+})()

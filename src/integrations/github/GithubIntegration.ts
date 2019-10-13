@@ -1,5 +1,5 @@
-import { App } from '@slack/bolt';
-import GithubApi from './GithubApi';
+import { App } from '@slack/bolt'
+import GithubApi from './GithubApi'
 
 export default class GithubIntegration {
   constructor(
@@ -9,7 +9,7 @@ export default class GithubIntegration {
 
   public async loadFeatures() {
     this.app.message(/^(G|g)et user issues (.+)/, async ({ say, context }) => {
-      const username = context.matches[2];
+      const username = context.matches[2]
 
       const userIssuesQuery: string = `{
         user(login: ${username}) {
@@ -24,7 +24,7 @@ export default class GithubIntegration {
               }
             }
           }
-        }}`;
+        }}`
 
       const {
         data: {
@@ -32,7 +32,7 @@ export default class GithubIntegration {
             issues: { edges },
           },
         },
-      } = await this.githubApi.get(userIssuesQuery);
+      } = await this.githubApi.get(userIssuesQuery)
 
       const issues = edges.map(
         ({
@@ -42,11 +42,11 @@ export default class GithubIntegration {
             body,
           },
         }: any) => `id: ${id}\nuser: ${login}\nbody: ${body}`,
-      );
+      )
 
       issues.forEach((message: any) => {
-        say(message);
-      });
-    });
+        say(message)
+      })
+    })
   }
 }
