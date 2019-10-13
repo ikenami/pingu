@@ -100,13 +100,17 @@ export default class GithubIntegration {
       } = await this.githubApi.get(userPrsQuery)
 
       const pullrequests = edges.map((edge: any) => {
+        const createdAt = new Date(edge.node.createdAt)
         const reviewers = edge.node.reviewRequests.edges.map((reviewEdge: any) => {
-          return reviewEdge.node.requestedReviewer.user.login;
+          if(reviewEdge.node.requestedReviewer)
+            return reviewEdge.node.requestedReviewer.user.login
+            
+          return 'unassigned'
         }).join(', ');
 
         return `user: ${edge.node.user.login}\n
                 title: ${edge.node.title}\n
-                createdAt: ${edge.node.createdAt}\n
+                createdAt: ${createdAt}\n
                 url: ${edge.node.url}\n
                 reviewRequests: ${reviewers}`
       })
