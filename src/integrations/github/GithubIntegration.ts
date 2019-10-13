@@ -110,7 +110,7 @@ export default class GithubIntegration {
           }
           console.log(`reviewers: ${reviewers}`)
 
-          return `user: ${edge.node.user.login}\n
+          return `user: ${edge.node.author.login}\n
                   title: ${edge.node.title}\n
                   createdAt: ${createdAt}\n
                   url: ${edge.node.url}\n
