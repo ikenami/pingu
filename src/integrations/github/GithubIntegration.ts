@@ -57,64 +57,73 @@ export default class GithubIntegration {
     })
 
     this.app.message(/^(G|g)et user prs (.+)/, async ({ say, context }) => {
-      const username = context.matches[2]
 
-      const userPrsQuery: string = `{
-        user(login: ${username}) {
-          pullRequests(last: 10,
-                       states:OPEN,
-                       orderBy:{
-                         field:CREATED_AT,
-                         direction:ASC
-                       }) {
-            edges {
-              node {
-                author {
-                  login
-                }
-                title
-                url
-                createdAt
-                reviewRequests {
-                  edges {
-                    node {
-                      requestedReviewer
+      try {
+        const username = context.matches[2]
+
+        const userPrsQuery: string = `{
+          user(login: ${username}) {
+            pullRequests(last: 10,
+                        states:OPEN,
+                        orderBy:{
+                          field:CREATED_AT,
+                          direction:ASC
+                        }) {
+              edges {
+                node {
+                  author {
+                    login
+                  }
+                  title
+                  url
+                  createdAt
+                  reviewRequests {
+                    edges {
+                      node {
+                        requestedReviewer
+                      }
                     }
                   }
                 }
               }
             }
-          }
-        }}`
+          }}`
 
-      const {
-        data: {
-          user: {
-            pullRequests: { edges },
+        const {
+          data: {
+            user: {
+              pullRequests: { edges },
+            },
           },
-        },
-      } = await this.githubApi.get(userPrsQuery)
+        } = await this.githubApi.get(userPrsQuery)
+        const pullrequests = edges.map((edge: any) => {
+          const createdAt = new Date(edge.node.createdAt)
+          let reviewers = 'unassigned';
+          console.log('vars are okay')
 
-      const pullrequests = edges.map((edge: any) => {
-        const createdAt = new Date(edge.node.createdAt)
-        let reviewers = 'unassigned';
+          if(edge.node.reviewRequests && edge.node.reviewRequests.edges.length > 0) {
+            console.log('has reviewers')
+            reviewers = edge.node.reviewRequests.edges.map((reviewEdge: any) => {
+              console.log(reviewEdge)
+              return reviewEdge.node.requestedReviewer
+            }).join(', ')
+          }
+          console.log(`reviewers: ${reviewers}`)
 
-        if(edge.node.reviewRequests && edge.node.reviewRequests.edges.length > 0) {
-          reviewers = edge.node.reviewRequests.edges.map((reviewEdge: any) => {
-            return reviewEdge.node.requestedReviewer
-          }).join(', ')
-        }
+          return `user: ${edge.node.user.login}\n
+                  title: ${edge.node.title}\n
+                  createdAt: ${createdAt}\n
+                  url: ${edge.node.url}\n
+                  reviewRequests: ${reviewers}`
+        })
 
-        return `user: ${edge.node.user.login}\n
-                title: ${edge.node.title}\n
-                createdAt: ${createdAt}\n
-                url: ${edge.node.url}\n
-                reviewRequests: ${reviewers}`
-      })
-
-      pullrequests.forEach((message: any) => {
-        say(message)
-      })
+        pullrequests.forEach((message: any) => {
+          say(message)
+        })
+      } catch (err) {
+        console.log(err)
+        say(err)
+      }
     })
   }
 }
