@@ -48,7 +48,7 @@ export default class GithubIntegration {
             url,
             createdAt,
           },
-        }: any) => `:diamonds: ${login} [${title} - ${url}] ${new Date(createdAt)}`,
+        }: any) => `:diamonds: @${login} [${title} - ${url}] \t\t${new Date(createdAt)}`,
       )
 
       say(issues.join('\n'))
@@ -99,7 +99,7 @@ export default class GithubIntegration {
         } = await this.githubApi.get(userPrsQuery)
 
         const pullrequests = edges.map((edge: any) => {
-          let reviewers = 'unassigned';
+          let reviewers = '\nunassigned';
 
           if(edge.node.reviews && edge.node.reviews.edges.length > 0) {
             reviewers = edge.node.reviews.edges.map((reviewEdge: any) => {
@@ -113,7 +113,7 @@ export default class GithubIntegration {
             }).join('\n')
           }
 
-          return `:spades: ${edge.node.author.login} [${edge.node.title} - ${edge.node.url}]\n${reviewers}`
+          return `:spades: @${edge.node.author.login} [${edge.node.title} - ${edge.node.url}]\n${reviewers}`
         })
 
         say(pullrequests.join('\n'))
