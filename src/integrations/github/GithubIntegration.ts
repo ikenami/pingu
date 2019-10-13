@@ -77,10 +77,13 @@ export default class GithubIntegration {
                   title
                   url
                   createdAt
-                  reviewRequests {
+                  reviews {
                     edges {
                       node {
-                        requestedReviewer
+                        author {
+                          login
+                        }
+                        state
                       }
                     }
                   }
@@ -101,11 +104,11 @@ export default class GithubIntegration {
           let reviewers = 'unassigned';
           console.log('vars are okay')
 
-          if(edge.node.reviewRequests && edge.node.reviewRequests.edges.length > 0) {
+          if(edge.node.reviews && edge.node.reviews.edges.length > 0) {
             console.log('has reviewers')
-            reviewers = edge.node.reviewRequests.edges.map((reviewEdge: any) => {
+            reviewers = edge.node.reviews.edges.map((reviewEdge: any) => {
               console.log(reviewEdge)
-              return reviewEdge.node.requestedReviewer
+              return `${reviewEdge.node.author.login} - ${reviewEdge.node.author.state}`
             }).join(', ')
           }
           console.log(`reviewers: ${reviewers}`)
@@ -114,7 +117,7 @@ export default class GithubIntegration {
                   title: ${edge.node.title}\n
                   createdAt: ${createdAt}\n
                   url: ${edge.node.url}\n
-                  reviewRequests: ${reviewers}`
+                  reviews: ${reviewers}`
         })
 
         pullrequests.forEach((message: any) => {
