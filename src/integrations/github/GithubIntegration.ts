@@ -21,11 +21,12 @@ export default class GithubIntegration {
             }) {
             edges {
               node {
-                title
                 author {
                   login
                 }
+                title
                 url
+                createdAt
               }
             }
           }
@@ -42,11 +43,12 @@ export default class GithubIntegration {
       const issues = edges.map(
         ({
           node: {
+            author: { login },
             title,
             url,
-            author: { login },
+            createdAt,
           },
-        }: any) => `user: ${login}\ntitle: ${title}\nurl: ${url}`,
+        }: any) => `user: ${login}\ntitle: ${title}\nurl: ${url}\ncreatedAt: ${createdAt}`,
       )
 
       issues.forEach((message: any) => {
@@ -67,10 +69,22 @@ export default class GithubIntegration {
                        }) {
             edges {
               node {
-                title
-                url
                 author {
                   login
+                }
+                title
+                url
+                createdAt
+                reviewRequests {
+                  edges {
+                    node {
+                      requestedReviewer {
+                        user {
+                          login
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -88,11 +102,13 @@ export default class GithubIntegration {
       const pullrequests = edges.map(
         ({
           node: {
+            author: { login },
             title,
             url,
-            author: { login },
+            createdAt,
+            reviewRequests,
           },
-        }: any) => `user: ${login}\ntitle: ${title}\nurl: ${url}`,
+        }: any) => `user: ${login}\ntitle: ${title}\ncreatedAt: ${createdAt}\nurl: ${url}\nreviewRequests: ${reviewRequests}`,
       )
 
       pullrequests.forEach((message: any) => {
